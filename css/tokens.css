@@ -1,0 +1,103 @@
+/* ============================================================
+   CLAUDINE DAN — DESIGN TOKENS
+   Charte graphique : la rigueur d'une matheticienne rencontre
+   la matière d'une peintre. Structure froide (grille, Space
+   Grotesk, noir encre) -> couleur et matière chaudes (Fraunces,
+   sable, ocre, indigo) : le site rejoue le basculement
+   cerveau gauche -> cerveau droit qui est au coeur de l'oeuvre.
+   ============================================================ */
+
+:root {
+  /* ---------- Couleurs — fond & matière ---------- */
+  --color-paper:        #f2ede4;   /* sable clair, papier légèrement texturé */
+  --color-paper-deep:   #e9e1d2;   /* variante ombrée du papier */
+  --color-ink:          #14120f;   /* noir encre chaud, jamais #000 pur */
+  --color-ink-soft:     #2b2722;   /* texte secondaire */
+
+  /* ---------- Couleurs — accents rares (extraits de la palette réelle des toiles) ---------- */
+  --color-ocre:         #b5702c;   /* terre, Ouidah, argile */
+  --color-indigo:       #1f3a5f;   /* teinture indigo, nuit, océan/traversée */
+  --color-rouge-terre:  #8a2f1f;   /* rouge terre cuite, rare, jamais dominant */
+
+  /* ---------- Etat / interface (minimal) ---------- */
+  --color-line:         rgba(20, 18, 15, 0.14);   /* filets, séparateurs */
+  --color-line-invert:  rgba(242, 237, 228, 0.22);
+  --color-focus:        var(--color-ocre);
+
+  /* ---------- Typographie ---------- */
+  --font-display: 'Fraunces', 'Iowan Old Style', serif;      /* voix émotionnelle, éditoriale, citations */
+  --font-ui:      'Space Grotesk', 'Helvetica Neue', sans-serif; /* structure, nav, légendes, chiffres — clin d'oeil géométrique */
+
+  /* Échelle fluide (clamp base 16px, ratio ~1.25-1.333 en desktop) */
+  --fs-xs:   clamp(0.75rem, 0.7rem + 0.2vw, 0.85rem);
+  --fs-sm:   clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --fs-base: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+  --fs-md:   clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+  --fs-lg:   clamp(1.8rem, 1.5rem + 1.2vw, 2.6rem);
+  --fs-xl:   clamp(2.6rem, 2rem + 2.4vw, 4.2rem);
+  --fs-xxl:  clamp(3.4rem, 2.4rem + 4vw, 6.4rem);   /* titres plein écran */
+
+  --lh-tight:  1.05;
+  --lh-snug:   1.25;
+  --lh-normal: 1.55;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:  0.14em;   /* usage: petites capitales UI (labels, nav) */
+
+  /* ---------- Espacement — grille 8px ---------- */
+  --space-1:  0.5rem;
+  --space-2:  1rem;
+  --space-3:  1.5rem;
+  --space-4:  2rem;
+  --space-5:  3rem;
+  --space-6:  4.5rem;
+  --space-7:  7rem;
+  --space-8:  11rem;
+
+  /* Marge de section — respire à l'échelle de l'écran, pas fixe */
+  --section-pad-y: clamp(4rem, 8vw, 9rem);
+  --section-pad-x: clamp(1.25rem, 6vw, 6rem);
+
+  /* ---------- Mouvement ---------- */
+  --ease-organic:   cubic-bezier(0.22, 1, 0.36, 1);   /* révélations, entrées */
+  --ease-soft:      cubic-bezier(0.16, 1, 0.3, 1);    /* parallax, survol */
+  --ease-tension:   cubic-bezier(0.65, 0, 0.35, 1);   /* transitions de salle */
+
+  --dur-fast:   0.3s;
+  --dur-base:   0.6s;
+  --dur-slow:   1.2s;
+  --dur-scene:  2s;
+
+  /* ---------- Grille / conteneur ---------- */
+  --container-max: 1440px;
+  --border-hair: 1px solid var(--color-line);
+
+  /* ---------- Z-index (nommés, jamais de nombre magique ailleurs) ---------- */
+  --z-canvas: 0;
+  --z-content: 10;
+  --z-nav: 50;
+  --z-transition: 90;
+  --z-cursor: 100;
+}
+
+/* Le site s'assume sombre dans les scènes d'introduction et de
+   transition (silence, noir) — inversion ponctuelle des tokens
+   de fond/texte, jamais un vrai "dark mode" système.
+   Valeurs littérales (pas de var() croisée) pour éviter toute
+   dépendance circulaire entre --color-paper et --color-ink. */
+[data-scene="nuit"] {
+  --color-paper: #14120f;
+  --color-paper-deep: #1d1a15;
+  --color-ink: #f2ede4;
+  --color-line: rgba(242, 237, 228, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01s;
+    --dur-base: 0.01s;
+    --dur-slow: 0.01s;
+    --dur-scene: 0.01s;
+  }
+}

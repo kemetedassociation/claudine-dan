@@ -1,0 +1,81 @@
+/* ============================================================
+   MÉMOIRE — "Racines et mémoire"
+   Traitement volontairement sobre : pas de scroll-jacking, pas de
+   parallax, pas d'effet. Le texte respire, les œuvres sont espacées.
+   ============================================================ */
+
+.memoire-header {
+  padding: var(--space-3) var(--section-pad-x);
+}
+.memoire-header .back-link {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+.memoire-hero {
+  padding: var(--space-7) var(--section-pad-x) var(--space-5);
+  max-width: 40rem;
+}
+.memoire-hero .eyebrow { color: var(--color-ink-soft); margin-bottom: var(--space-2); }
+
+.memoire-recit {
+  max-width: 38rem;
+  margin-inline: auto;
+  padding: var(--space-5) var(--section-pad-x) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.memoire-recit p {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+.memoire-recit em {
+  font-style: italic;
+  color: var(--color-ocre);
+}
+
+.memoire-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  padding: 0 var(--section-pad-x) var(--space-7);
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+.memoire-item img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: brightness(0.82);
+}
+
+.memoire-close {
+  text-align: center;
+  padding: var(--space-7) var(--section-pad-x);
+}
+.memoire-close p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-4);
+}
+.memoire-back {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.15em;
+}
+
+@media (max-width: 720px) {
+  .memoire-gallery { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .memoire-gallery { grid-template-columns: 1fr; }
+}

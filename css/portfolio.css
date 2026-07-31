@@ -1,0 +1,355 @@
+/* ============================================================
+   PORTFOLIO — Univers 1
+   Squelette statique : composition et mise en page uniquement.
+   Aucune animation ici (voir portfolio.js pour GSAP/ScrollTrigger).
+   ============================================================ */
+
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: left;
+  background: var(--color-ocre);
+  z-index: var(--z-nav);
+  transform: scaleX(0);
+}
+
+.scene {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.scene__inner {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+
+/* Scènes épinglées (pin:true dans portfolio.js) : une fois figée en
+   position:fixed par ScrollTrigger, l'élément garde sa hauteur complète
+   (150–300vh) — si son centrage flex reste actif sur cette hauteur
+   entière, le contenu se retrouve centré à 75–150vh du haut, donc hors
+   du viewport visible (900px). On désactive le centrage sur l'élément
+   pin lui-même ; chaque scène pin centre son contenu dans une zone de
+   100vh (voir .pin-stage et les blocs qui ont déjà height:100vh). */
+.scene--nombre,
+.scene--bascule,
+.scene--matiere,
+.scene--ruada,
+.scene--galerie-horizontale {
+  display: block;
+  padding: 0;
+}
+.pin-stage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--section-pad-y) var(--section-pad-x);
+}
+
+/* ---------- 00 — Silence ---------- */
+.scene--silence {
+  min-height: 100vh;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.scene--silence .signal-point {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-ink);
+}
+.scene--silence .scroll-cue {
+  width: 1px; height: 3rem;
+  background: var(--color-line-invert);
+}
+
+/* ---------- 01 — Le nombre avant la couleur ---------- */
+.scene--nombre {
+  min-height: 150vh;
+}
+.scene--nombre .figure-wrap {
+  width: min(70vmin, 640px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.scene--nombre svg { width: 100%; height: 100%; }
+.scene--nombre svg path,
+.scene--nombre svg circle,
+.scene--nombre svg line {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1;
+}
+
+/* ---------- 02 — Le visage ---------- */
+.scene--visage {
+  padding: 0;
+  overflow: hidden;
+}
+.scene--visage .portrait-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.scene--visage .portrait-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* ---------- 03 — La phrase fondatrice ---------- */
+.scene--phrase {
+  min-height: 120vh;
+  text-align: center;
+}
+.scene--phrase .scene__inner {
+  max-width: 46rem;
+}
+.scene--phrase .quote-attribution {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+/* ---------- 04 — Le basculement ---------- */
+.scene--bascule {
+  min-height: 200vh;
+  overflow: hidden;
+}
+.scene--bascule .bascule-stage {
+  position: relative;
+  width: min(80vmin, 720px);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.scene--bascule .bascule-figure,
+.scene--bascule .bascule-matter {
+  position: absolute;
+  inset: 0;
+}
+.scene--bascule .bascule-figure path {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1;
+}
+.scene--bascule .bascule-matter {
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-ocre), var(--color-rouge-terre) 55%, var(--color-indigo) 100%);
+  opacity: 0; /* révélé en JS */
+  filter: blur(18px);
+}
+.scene--bascule .bascule-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- 05 — Galerie flottante I ---------- */
+.scene--galerie-i {
+  min-height: 250vh;
+  align-items: flex-start;
+  padding-top: var(--space-7);
+  perspective: 1400px;
+}
+.gallery-float {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+}
+.gallery-float__item { transform-style: preserve-3d; will-change: transform; }
+.gallery-float__item {
+  grid-column: span 5;
+}
+.gallery-float__item:nth-child(2) { grid-column: 7 / span 5; margin-top: var(--space-6); }
+.gallery-float__item:nth-child(3) { grid-column: 2 / span 4; margin-top: var(--space-7); }
+.gallery-float__item:nth-child(4) { grid-column: 8 / span 4; }
+.gallery-float__item .artwork-placeholder,
+.gallery-float__item .artwork-photo { aspect-ratio: 3 / 4; }
+
+/* ---------- 06 — Rapprochement matière ---------- */
+.scene--matiere {
+  min-height: 180vh;
+  padding: 0;
+}
+.scene--matiere .matiere-frame {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.scene--matiere .matiere-frame .artwork-placeholder,
+.scene--matiere .matiere-frame .artwork-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+.scene--matiere .matiere-caption {
+  position: absolute;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-md);
+  color: var(--color-paper);
+  mix-blend-mode: difference;
+}
+
+/* ---------- 07 — Citation courte ---------- */
+.scene--souffle {
+  min-height: 90vh;
+  text-align: center;
+}
+.scene--souffle .quote { font-size: var(--fs-md); }
+
+/* ---------- 08 — La Ruada ---------- */
+.scene--ruada {
+  min-height: 200vh;
+}
+.scene--ruada .ruada-caption {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.scene--ruada .ruada-stage {
+  width: min(34vmin, 300px);
+  aspect-ratio: 1;
+}
+.scene--ruada .ruada-stage svg path {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+}
+
+/* ---------- 09 — Racines et mémoire ---------- */
+.scene--racines {
+  min-height: 160vh;
+  flex-direction: column;
+  gap: var(--space-5);
+  text-align: center;
+}
+.scene--racines .artwork-placeholder {
+  width: min(50vmin, 420px);
+  margin-inline: auto;
+  aspect-ratio: 4 / 5;
+  filter: brightness(0.7);
+}
+.racines-gallery {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.racines-gallery .artwork-photo {
+  width: min(24vmin, 220px);
+  aspect-ratio: 4 / 5;
+  filter: brightness(0.75);
+}
+.racines-link {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.15em;
+}
+.scene--racines .racines-lines p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-md);
+  margin-block: var(--space-3);
+}
+
+/* ---------- 10 — Galerie horizontale Afrique/Voyage ---------- */
+.scene--galerie-horizontale {
+  min-height: 300vh;
+  padding: 0;
+  overflow: hidden;
+}
+.gallery-horizontal {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  gap: var(--space-5);
+  padding-inline: var(--section-pad-x);
+  width: max-content;
+}
+.gallery-horizontal__item { width: min(60vw, 560px); flex-shrink: 0; }
+.gallery-horizontal__item .artwork-placeholder,
+.gallery-horizontal__item .artwork-photo { aspect-ratio: 3 / 4; }
+.gallery-horizontal__item .artwork-label { position: absolute; bottom: 0; left: 0; }
+
+/* ---------- 11 — Transmission ---------- */
+.scene--transmission {
+  min-height: 140vh;
+}
+.transmission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+.transmission-grid .artwork-placeholder,
+.transmission-grid .artwork-photo { aspect-ratio: 4 / 3; filter: sepia(0.15); }
+
+/* ---------- 12 — Épilogue ---------- */
+.scene--epilogue {
+  min-height: 130vh;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-align: center;
+}
+.scene--epilogue .signal-point {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-ocre);
+}
+.scene--epilogue .boutique-link {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.15em;
+}
+.scene--epilogue .epilogue-secondary-link {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
+
+/* ---------- Responsive : la trame narrative reste identique ---------- */
+@media (max-width: 860px) {
+  .gallery-float { grid-template-columns: 1fr; gap: var(--space-5); }
+  .gallery-float__item,
+  .gallery-float__item:nth-child(2),
+  .gallery-float__item:nth-child(3),
+  .gallery-float__item:nth-child(4) {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+  .transmission-grid { grid-template-columns: 1fr; }
+  .gallery-horizontal__item { width: 78vw; }
+}

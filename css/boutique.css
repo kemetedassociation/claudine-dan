@@ -1,0 +1,232 @@
+/* ============================================================
+   BOUTIQUE — Univers 2
+   Galerie privée : chaque fiche est une exposition miniature, pas une
+   fiche Shopify. Pas de paiement réel ici — "Ajouter à ma sélection"
+   alimente un panier local qui débouche sur une prise de contact
+   (mailto), en attendant une intégration Stripe/WooCommerce future.
+   ============================================================ */
+
+.boutique-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--section-pad-x);
+  background: color-mix(in srgb, var(--color-paper) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: var(--border-hair);
+}
+.boutique-header .brand {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-md);
+}
+.boutique-header nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.boutique-header .back-link {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.cart-toggle {
+  position: relative;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.cart-toggle .cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  background: var(--color-ocre);
+  color: var(--color-paper);
+  font-size: 0.85em;
+}
+
+.boutique-intro {
+  padding: var(--space-7) var(--section-pad-x) var(--space-5);
+  max-width: 46rem;
+}
+.boutique-intro .eyebrow { color: var(--color-ink-soft); margin-bottom: var(--space-2); }
+.boutique-intro h1 { margin-bottom: var(--space-3); }
+
+.boutique-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0 var(--section-pad-x) var(--space-5);
+}
+.filter-btn {
+  padding: 0.5em 1.1em;
+  border: var(--border-hair);
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: background var(--dur-fast) var(--ease-soft), color var(--dur-fast) var(--ease-soft);
+}
+.filter-btn[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+  padding: 0 var(--section-pad-x) var(--space-8);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.product-card .artwork-placeholder,
+.product-card .artwork-photo {
+  aspect-ratio: 4 / 5;
+  transition: transform var(--dur-base) var(--ease-soft);
+}
+.product-card:hover .artwork-placeholder,
+.product-card:hover .artwork-photo {
+  transform: translateY(-4px);
+}
+.product-card .product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.product-card h3 {
+  font-size: var(--fs-md);
+}
+.product-card .dims {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+}
+.product-card .intention {
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+  line-height: var(--lh-normal);
+}
+.product-card .product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+.product-card .price {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+}
+.product-card .add-btn {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.1em;
+}
+.product-card .add-btn[data-added="true"] {
+  color: var(--color-ocre);
+}
+
+/* ---------- Panier (drawer) ---------- */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(420px, 100%);
+  background: var(--color-paper);
+  border-left: var(--border-hair);
+  z-index: var(--z-transition);
+  transform: translateX(100%);
+  transition: transform var(--dur-base) var(--ease-tension);
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+}
+.cart-drawer[data-open="true"] {
+  transform: translateX(0);
+}
+.cart-drawer .cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+.cart-drawer ul {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.cart-drawer li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: var(--space-1);
+  border-bottom: var(--border-hair);
+  font-size: var(--fs-sm);
+}
+.cart-drawer .cart-empty {
+  color: var(--color-ink-soft);
+  font-size: var(--fs-sm);
+}
+.cart-drawer .cart-cta {
+  margin-top: var(--space-3);
+  display: block;
+  text-align: center;
+  padding: var(--space-2);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.cart-drawer .cart-note {
+  margin-top: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--color-ink-soft);
+}
+.cart-veil {
+  position: fixed;
+  inset: 0;
+  background: var(--color-ink);
+  opacity: 0;
+  pointer-events: none;
+  z-index: var(--z-nav);
+  transition: opacity var(--dur-base) var(--ease-soft);
+}
+.cart-veil[data-open="true"] {
+  opacity: 0.35;
+  pointer-events: auto;
+}
+
+@media (max-width: 640px) {
+  .product-grid { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .boutique-header { flex-wrap: wrap; row-gap: var(--space-2); }
+  .boutique-header .back-link { order: 1; }
+  .boutique-header .brand { order: 3; width: 100%; text-align: center; }
+  .boutique-header .cart-toggle { order: 2; }
+}
