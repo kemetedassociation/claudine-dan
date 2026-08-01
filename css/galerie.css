@@ -44,15 +44,19 @@
   aspect-ratio: 4 / 5;
   overflow: hidden;
   border: var(--border-hair);
+  background: var(--color-paper-deep);
 }
 .oeuvre-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* contain, pas cover : ce sont des photos "mise en situation" (mur,
+     meubles) à cadrages très variés — un cover cadrerait n'importe où.
+     contain garantit que la toile entière reste toujours visible. */
+  object-fit: contain;
   transition: transform var(--dur-base) var(--ease-soft);
 }
 .oeuvre-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 @media (max-width: 640px) {

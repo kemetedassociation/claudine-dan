@@ -52,6 +52,25 @@ gsap.matchMedia().add(
         });
       }
       gsap.fromTo(scrollCue, { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 1, delay: 1.2, ease: 'power2.out', transformOrigin: 'top' });
+
+      const heroName = document.querySelector('.hero-name');
+      const heroTagline = document.querySelector('.hero-tagline');
+      if (heroName) {
+        if (full) {
+          gsap.fromTo(
+            heroName,
+            { opacity: 0, letterSpacing: '0.5em' },
+            { opacity: 1, letterSpacing: '0.01em', duration: 2.2, delay: 0.6, ease: 'power2.out' }
+          );
+          gsap.fromTo(
+            heroTagline,
+            { opacity: 0, letterSpacing: '0.6em' },
+            { opacity: 1, letterSpacing: 'var(--tracking-wide)', duration: 1.8, delay: 1.6, ease: 'power2.out' }
+          );
+        } else {
+          gsap.set([heroName, heroTagline], { opacity: 1 });
+        }
+      }
     }
 
     // ---------- 01 — Le nombre avant la couleur ----------
@@ -67,7 +86,7 @@ gsap.matchMedia().add(
             trigger: '.scene--nombre',
             start: 'top top',
             end: 'bottom bottom',
-            scrub: true,
+            scrub: 0.6,
             pin: true,
           },
         });
@@ -88,7 +107,7 @@ gsap.matchMedia().add(
             trigger: '.scene--visage',
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.6,
           },
         });
         gsap.to(portrait, {
@@ -98,7 +117,7 @@ gsap.matchMedia().add(
             trigger: '.scene--visage',
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.6,
           },
         });
       }
@@ -116,12 +135,43 @@ gsap.matchMedia().add(
           ease: 'none',
           stagger: { each: 0.012, from: 'start' },
           scrollTrigger: {
-            trigger: '.scene--phrase',
-            start: 'top 75%',
-            end: 'bottom 60%',
-            scrub: true,
+            // Trigger sur le bloc de texte, pas la section (qui est plus
+            // haute) : sinon la révélation finit alors que le texte a
+            // déjà défilé hors du centre de l'écran.
+            trigger: '.scene--phrase .scene__inner',
+            start: 'top 80%',
+            end: 'bottom 40%',
+            scrub: 0.6,
           },
         });
+      }
+    }
+
+    // ---------- 03b — Le parcours ----------
+    // Effet "machine à écrire" (clip-path en escalier) plutôt qu'un
+    // splitChars par ligne : même esprit d'écriture progressive que la
+    // scène 03, en plus léger vu qu'il y a cinq lignes à la suite.
+    const parcoursLines = gsap.utils.toArray('.parcours-lines p');
+    if (parcoursLines.length) {
+      if (full) {
+        gsap.set(parcoursLines, { clipPath: 'inset(0 100% 0 0)' });
+        gsap.to(parcoursLines, {
+          clipPath: 'inset(0 0% 0 0)',
+          ease: 'steps(14)',
+          stagger: 0.9,
+          scrollTrigger: {
+            // Le trigger porte sur le bloc de texte lui-même (pas la
+            // section, plus haute que lui) : sinon l'animation, calée sur
+            // toute la hauteur de la section, finit alors que le texte a
+            // déjà défilé hors champ.
+            trigger: '.parcours-lines',
+            start: 'top 80%',
+            end: 'bottom 30%',
+            scrub: 0.6,
+          },
+        });
+      } else {
+        gsap.set(parcoursLines, { clipPath: 'inset(0 0% 0 0)' });
       }
     }
 
@@ -142,7 +192,7 @@ gsap.matchMedia().add(
             trigger: bascule,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: true,
+            scrub: 0.6,
             pin: true,
           },
         });
@@ -158,7 +208,7 @@ gsap.matchMedia().add(
               trigger: bascule,
               start: 'top top',
               end: 'bottom bottom',
-              scrub: true,
+              scrub: 0.6,
               pin: true,
               onUpdate: (self) => shader.setProgress(self.progress),
               onToggle: (self) => shader.setActive(self.isActive),
@@ -184,7 +234,7 @@ gsap.matchMedia().add(
             trigger: '.scene--galerie-i',
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.6,
           },
         });
       });
@@ -200,21 +250,18 @@ gsap.matchMedia().add(
     // ---------- 06 — Rapprochement matière ----------
     const matiereArt = document.querySelector('.scene--matiere .artwork-placeholder, .scene--matiere .artwork-photo');
     if (matiereArt && full) {
-      gsap.fromTo(
-        matiereArt,
-        { scale: 1 },
-        {
-          scale: 2.4,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.scene--matiere',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true,
-            pin: true,
-          },
-        }
-      );
+      // Le zoom occupe les 3/4 du pin, le dernier quart tient l'image à
+      // l'arrêt (temps de la regarder) avant que la scène ne se libère.
+      const matiereTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.scene--matiere',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.6,
+          pin: true,
+        },
+      });
+      matiereTl.fromTo(matiereArt, { scale: 1 }, { scale: 2.4, ease: 'none', duration: 3 }).to({}, { duration: 1 });
     }
 
     // ---------- 07 — Citation courte ----------
@@ -237,7 +284,7 @@ gsap.matchMedia().add(
 
     // ---------- 08 — La Ruada ----------
     const ruadaPath = document.querySelector('.scene--ruada .ruada-stage svg path');
-    const ruadaArt = document.querySelector('.scene--ruada .artwork-placeholder');
+    const ruadaArt = document.querySelector('.scene--ruada .artwork-placeholder, .scene--ruada .artwork-photo');
     if (ruadaPath && full) {
       drawableLength(ruadaPath);
       gsap.set(ruadaArt, { clipPath: 'inset(0 100% 0 0)' });
@@ -246,12 +293,15 @@ gsap.matchMedia().add(
           trigger: '.scene--ruada',
           start: 'top top',
           end: 'bottom bottom',
-          scrub: true,
+          scrub: 0.6,
           pin: true,
         },
       });
-      tl.to(ruadaPath, { strokeDashoffset: 0, ease: 'none' }, 0)
-        .to(ruadaArt, { clipPath: 'inset(0 0% 0 0)', ease: 'none' }, 0.5);
+      // Le tracé puis la révélation occupent ~70% du pin ; le reste tient
+      // l'œuvre à l'écran, révélée, avant de relâcher la scène.
+      tl.to(ruadaPath, { strokeDashoffset: 0, ease: 'none', duration: 1 }, 0)
+        .to(ruadaArt, { clipPath: 'inset(0 0% 0 0)', ease: 'none', duration: 1 }, 0.6)
+        .to({}, { duration: 0.6 });
     } else if (ruadaArt) {
       gsap.set(ruadaArt, { clipPath: 'inset(0 0% 0 0)' });
     }
@@ -290,7 +340,7 @@ gsap.matchMedia().add(
           trigger: '.scene--galerie-horizontale',
           start: 'top top',
           end: 'bottom bottom',
-          scrub: true,
+          scrub: 0.6,
           pin: true,
           invalidateOnRefresh: true,
         },

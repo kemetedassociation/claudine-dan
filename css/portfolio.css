@@ -72,6 +72,18 @@
   width: 1px; height: 3rem;
   background: var(--color-line-invert);
 }
+.hero-name {
+  font-size: clamp(2.6rem, 5vw + 1rem, 6rem);
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+.hero-tagline {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+}
 
 /* ---------- 01 — Le nombre avant la couleur ---------- */
 .scene--nombre {
@@ -106,6 +118,7 @@
   width: 100%; height: 100%;
   object-fit: cover;
   filter: grayscale(1) contrast(1.05);
+  will-change: clip-path, transform;
 }
 
 /* ---------- 03 — La phrase fondatrice ---------- */
@@ -124,6 +137,24 @@
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--color-ink-soft);
+}
+
+/* ---------- 03b — Le parcours ---------- */
+.scene--parcours {
+  min-height: 140vh;
+  text-align: center;
+}
+.parcours-lines {
+  max-width: 34rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.parcours-lines p {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: var(--lh-snug);
 }
 
 /* ---------- 04 — Le basculement ---------- */
@@ -202,6 +233,7 @@
   height: 100%;
   aspect-ratio: auto;
   object-fit: cover;
+  will-change: transform;
 }
 .scene--matiere .matiere-caption {
   position: absolute;
@@ -223,7 +255,7 @@
 
 /* ---------- 08 — La Ruada ---------- */
 .scene--ruada {
-  min-height: 200vh;
+  min-height: 230vh;
 }
 .scene--ruada .ruada-caption {
   font-size: var(--fs-xs);
@@ -262,6 +294,8 @@
 .racines-gallery .artwork-photo {
   width: min(24vmin, 220px);
   aspect-ratio: 4 / 5;
+  object-fit: contain;
+  background: var(--color-paper-deep);
   filter: brightness(0.75);
 }
 .racines-link {
@@ -283,7 +317,7 @@
 
 /* ---------- 10 — Galerie horizontale Afrique/Voyage ---------- */
 .scene--galerie-horizontale {
-  min-height: 300vh;
+  min-height: 380vh;
   padding: 0;
   overflow: hidden;
 }
@@ -294,6 +328,7 @@
   gap: var(--space-5);
   padding-inline: var(--section-pad-x);
   width: max-content;
+  will-change: transform;
 }
 .gallery-horizontal__item { width: min(60vw, 560px); flex-shrink: 0; }
 .gallery-horizontal__item .artwork-placeholder,
