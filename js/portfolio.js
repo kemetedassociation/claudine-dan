@@ -1,8 +1,6 @@
 // Séquences GSAP/ScrollTrigger — une par scène du storyboard (storyboard.md).
 // main.js s'exécute avant ce fichier et expose window.reduceMotion.
 
-import { initBasculeShader } from './bascule-shader.js';
-
 const reduceMotion = window.reduceMotion;
 
 function splitChars(el) {
@@ -96,30 +94,25 @@ gsap.matchMedia().add(
     }
 
     // ---------- 02 — Le visage ----------
+    // Scène épinglée : le portrait se révèle puis reste à l'écran, net et
+    // entier, un instant avant que le scroll ne relâche la scène (retour
+    // utilisateur : laisser le temps de découvrir l'image en entier).
     const portrait = document.querySelector('.scene--visage .portrait-wrap img');
     if (portrait) {
       if (full) {
         gsap.set(portrait, { scale: 1.15, clipPath: 'inset(0 0 0 100%)' });
-        gsap.to(portrait, {
-          clipPath: 'inset(0 0 0 0%)',
-          ease: 'none',
+        const visageTl = gsap.timeline({
           scrollTrigger: {
             trigger: '.scene--visage',
-            start: 'top bottom',
-            end: 'bottom top',
+            start: 'top top',
+            end: 'bottom bottom',
             scrub: 0.6,
+            pin: true,
           },
         });
-        gsap.to(portrait, {
-          scale: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.scene--visage',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 0.6,
-          },
-        });
+        visageTl
+          .to(portrait, { clipPath: 'inset(0 0 0 0%)', scale: 1, ease: 'none', duration: 1 })
+          .to({}, { duration: 0.6 });
       }
     }
 
@@ -147,47 +140,45 @@ gsap.matchMedia().add(
       }
     }
 
-    // ---------- 03b — Le parcours ----------
+    // ---------- 03b / 04b — Le parcours, Reconnaissance ----------
     // Effet "machine à écrire" (clip-path en escalier) plutôt qu'un
     // splitChars par ligne : même esprit d'écriture progressive que la
-    // scène 03, en plus léger vu qu'il y a cinq lignes à la suite.
-    const parcoursLines = gsap.utils.toArray('.parcours-lines p');
-    if (parcoursLines.length) {
+    // scène 03, en plus léger vu qu'il y a plusieurs lignes à la suite.
+    // Une ScrollTrigger indépendante par bloc (il peut y en avoir
+    // plusieurs sur la page) — trigger sur le bloc de texte lui-même
+    // (pas la section, plus haute) sinon l'animation finit alors que le
+    // texte a déjà défilé hors champ.
+    gsap.utils.toArray('.written-lines').forEach((block) => {
+      const lines = block.querySelectorAll('p');
       if (full) {
-        gsap.set(parcoursLines, { clipPath: 'inset(0 100% 0 0)' });
-        gsap.to(parcoursLines, {
+        gsap.set(lines, { clipPath: 'inset(0 100% 0 0)' });
+        gsap.to(lines, {
           clipPath: 'inset(0 0% 0 0)',
           ease: 'steps(14)',
           stagger: 0.9,
           scrollTrigger: {
-            // Le trigger porte sur le bloc de texte lui-même (pas la
-            // section, plus haute que lui) : sinon l'animation, calée sur
-            // toute la hauteur de la section, finit alors que le texte a
-            // déjà défilé hors champ.
-            trigger: '.parcours-lines',
+            trigger: block,
             start: 'top 80%',
             end: 'bottom 30%',
             scrub: 0.6,
           },
         });
       } else {
-        gsap.set(parcoursLines, { clipPath: 'inset(0 0% 0 0)' });
+        gsap.set(lines, { clipPath: 'inset(0 0% 0 0)' });
       }
-    }
+    });
 
     // ---------- 04 — Le basculement ----------
+    // Un portrait flouté de Claudine se précise à mesure que la figure
+    // géométrique s'efface — le visage remplace l'abstraction pour ce
+    // moment de bascule (retour utilisateur : incarner la transition).
     const bascule = document.querySelector('.scene--bascule');
     if (bascule) {
       const figure = bascule.querySelector('.bascule-figure');
       const matter = bascule.querySelector('.bascule-matter');
-      const stage = bascule.querySelector('.bascule-stage');
 
       if (full) {
-        // Le crossfade CSS/SVG démarre tout de suite (aucun temps mort
-        // pendant le chargement différé de Three.js). S'il réussit, le
-        // seul effet WebGL/GLSL du site (voir bascule-shader.js) prend
-        // le relais et remplace ce repli ; sinon ce dernier reste actif.
-        const cssTl = gsap.timeline({
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: bascule,
             start: 'top top',
@@ -196,28 +187,16 @@ gsap.matchMedia().add(
             pin: true,
           },
         });
-        cssTl.to(figure, { rotate: 50, opacity: 0, ease: 'none' }, 0)
-          .fromTo(matter, { opacity: 0, filter: 'blur(18px)' }, { opacity: 1, filter: 'blur(0px)', ease: 'none' }, 0.45);
-
-        if (stage) {
-          initBasculeShader(stage).then((shader) => {
-            if (!shader) return;
-            cssTl.scrollTrigger.kill();
-            gsap.set([figure, matter], { opacity: 0 });
-            ScrollTrigger.create({
-              trigger: bascule,
-              start: 'top top',
-              end: 'bottom bottom',
-              scrub: 0.6,
-              pin: true,
-              onUpdate: (self) => shader.setProgress(self.progress),
-              onToggle: (self) => shader.setActive(self.isActive),
-            });
-            ScrollTrigger.refresh();
-          });
-        }
+        tl.to(figure, { rotate: 50, opacity: 0, ease: 'none', duration: 1 }, 0)
+          .fromTo(
+            matter,
+            { opacity: 0, filter: 'blur(18px) grayscale(0.3)' },
+            { opacity: 1, filter: 'blur(0px) grayscale(0.3)', ease: 'none', duration: 1 },
+            0.35
+          )
+          .to({}, { duration: 0.6 }); // pause, le visage net à l'écran, avant de relâcher
       } else {
-        gsap.set(matter, { opacity: 1, filter: 'blur(0px)' });
+        gsap.set(matter, { opacity: 1, filter: 'blur(0px) grayscale(0.3)' });
         gsap.set(figure, { opacity: 0 });
       }
     }
@@ -248,20 +227,33 @@ gsap.matchMedia().add(
     }
 
     // ---------- 06 — Rapprochement matière ----------
-    const matiereArt = document.querySelector('.scene--matiere .artwork-placeholder, .scene--matiere .artwork-photo');
-    if (matiereArt && full) {
-      // Le zoom occupe les 3/4 du pin, le dernier quart tient l'image à
-      // l'arrêt (temps de la regarder) avant que la scène ne se libère.
-      const matiereTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.scene--matiere',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.6,
-          pin: true,
-        },
-      });
-      matiereTl.fromTo(matiereArt, { scale: 1 }, { scale: 2.4, ease: 'none', duration: 3 }).to({}, { duration: 1 });
+    // Prolonge le zoom amorcé scène 05 : on retrouve la même toile (cld45),
+    // d'abord à une échelle proche de sa taille dans la galerie flottante,
+    // qui grossit jusqu'à couvrir l'écran, puis crossfade vers un détail
+    // macro (grain/pigment) pour le zoom final.
+    const matiereWide = document.querySelector('.scene--matiere .matiere-wide');
+    const matiereDetail = document.querySelector('.scene--matiere .matiere-detail');
+    if (matiereWide && matiereDetail) {
+      if (full) {
+        gsap.set(matiereWide, { scale: 0.45, transformOrigin: '55% 60%' });
+        gsap.set(matiereDetail, { scale: 1.15, opacity: 0 });
+        const matiereTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.scene--matiere',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.6,
+            pin: true,
+          },
+        });
+        matiereTl
+          .to(matiereWide, { scale: 1.6, transformOrigin: '55% 60%', ease: 'none', duration: 2 }, 0)
+          .to(matiereDetail, { opacity: 1, scale: 1, ease: 'none', duration: 1 }, 1.4)
+          .to({}, { duration: 1 }); // pause, texture à l'écran, avant de relâcher
+      } else {
+        gsap.set(matiereWide, { opacity: 0 });
+        gsap.set(matiereDetail, { opacity: 1, scale: 1 });
+      }
     }
 
     // ---------- 07 — Citation courte ----------

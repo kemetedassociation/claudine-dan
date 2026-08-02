@@ -43,7 +43,8 @@
 .scene--bascule,
 .scene--matiere,
 .scene--ruada,
-.scene--galerie-horizontale {
+.scene--galerie-horizontale,
+.scene--visage {
   display: block;
   padding: 0;
 }
@@ -105,6 +106,7 @@
 
 /* ---------- 02 — Le visage ---------- */
 .scene--visage {
+  min-height: 170vh;
   padding: 0;
   overflow: hidden;
 }
@@ -140,18 +142,19 @@
 }
 
 /* ---------- 03b — Le parcours ---------- */
-.scene--parcours {
+.scene--parcours,
+.scene--reconnaissance {
   min-height: 140vh;
   text-align: center;
 }
-.parcours-lines {
+.written-lines {
   max-width: 34rem;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
 }
-.parcours-lines p {
+.written-lines p {
   font-family: var(--font-display);
   font-size: var(--fs-md);
   line-height: var(--lh-snug);
@@ -179,16 +182,13 @@
   stroke-width: 1;
 }
 .scene--bascule .bascule-matter {
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--color-ocre), var(--color-rouge-terre) 55%, var(--color-indigo) 100%);
-  opacity: 0; /* révélé en JS */
-  filter: blur(18px);
-}
-.scene--bascule .bascule-canvas {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0; /* révélé en JS */
+  filter: blur(18px) grayscale(0.3);
+  will-change: filter, opacity;
 }
 
 /* ---------- 05 — Galerie flottante I ---------- */
@@ -234,6 +234,9 @@
   aspect-ratio: auto;
   object-fit: cover;
   will-change: transform;
+}
+.scene--matiere .matiere-detail {
+  opacity: 0;
 }
 .scene--matiere .matiere-caption {
   position: absolute;

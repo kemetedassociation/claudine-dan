@@ -33,32 +33,71 @@
 .galerie-intro .eyebrow { color: var(--color-ink-soft); margin-bottom: var(--space-2); }
 .galerie-intro h1 { margin-bottom: var(--space-3); }
 
+/* Grille "masonry" en colonnes CSS : chaque photo garde ses dimensions
+   natives (pas de recadrage forcé dans une case uniforme) — pour la
+   plupart des pièces, le décor de la prise de vue (mur, meuble) reste
+   visible, tel que photographié. */
 .oeuvres-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--space-2);
+  columns: 4;
+  column-gap: var(--space-2);
   padding: 0 var(--section-pad-x) var(--space-8);
 }
 .oeuvre-item {
   display: block;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
+  break-inside: avoid;
+  margin-bottom: var(--space-2);
   border: var(--border-hair);
   background: var(--color-paper-deep);
+  cursor: zoom-in;
 }
 .oeuvre-item img {
   width: 100%;
-  height: 100%;
-  /* contain, pas cover : ce sont des photos "mise en situation" (mur,
-     meubles) à cadrages très variés — un cover cadrerait n'importe où.
-     contain garantit que la toile entière reste toujours visible. */
-  object-fit: contain;
+  height: auto;
+  display: block;
   transition: transform var(--dur-base) var(--ease-soft);
 }
 .oeuvre-item:hover img {
-  transform: scale(1.04);
+  transform: scale(1.02);
 }
 
+/* ---------- Lightbox plein écran ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-ink) 92%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-soft);
+}
+.lightbox[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+.lightbox-close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--section-pad-x);
+  color: var(--color-paper);
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+}
+
+@media (max-width: 960px) {
+  .oeuvres-grid { columns: 3; }
+}
 @media (max-width: 640px) {
-  .oeuvres-grid { grid-template-columns: 1fr 1fr; gap: var(--space-1); }
+  .oeuvres-grid { columns: 2; column-gap: var(--space-1); }
 }
