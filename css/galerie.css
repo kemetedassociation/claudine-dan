@@ -48,7 +48,6 @@
   margin-bottom: var(--space-2);
   border: var(--border-hair);
   background: var(--color-paper-deep);
-  cursor: zoom-in;
 }
 .oeuvre-item img {
   width: 100%;
@@ -60,39 +59,40 @@
   transform: scale(1.02);
 }
 
-/* ---------- Lightbox plein écran ---------- */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-4);
-  background: color-mix(in srgb, var(--color-ink) 92%, transparent);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--dur-base) var(--ease-soft);
+/* ---------- Mosaïques séquentielles (8 groupes de 10 œuvres, la
+   dernière de 5) — chaque groupe se déclenche une fois quand il entre
+   dans l'écran, jamais figé en attendant une interaction précise. ---------- */
+.mosaic-group {
+  padding: 0 0 var(--space-6);
 }
-.lightbox[data-open="true"] {
-  opacity: 1;
-  pointer-events: auto;
+.mosaic-group .oeuvres-grid {
+  padding-bottom: 0;
 }
-.lightbox img {
-  max-width: 90vw;
-  max-height: 88vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-.lightbox-close {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--section-pad-x);
-  color: var(--color-paper);
+.mosaic-group__label {
+  padding: 0 var(--section-pad-x);
   font-family: var(--font-ui);
-  font-size: var(--fs-md);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-2);
+}
+.mosaic-group .oeuvre-item {
+  opacity: 0;
+  transform: translateY(48px) scale(0.94);
+  transition: opacity 0.7s var(--ease-organic), transform 0.7s var(--ease-organic);
+  transition-delay: calc(var(--i, 0) * 0.07s);
+}
+.mosaic-group.is-visible .oeuvre-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-group .oeuvre-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 @media (max-width: 960px) {

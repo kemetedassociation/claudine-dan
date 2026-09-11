@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infini — Claudine Dan</title>
+<meta name="description" content="Infini — œuvre de Claudine Dan, peintre franco-béninoise.">
+
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300..700;1,300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/nav.css">
+<link rel="stylesheet" href="../css/oeuvre.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Aller au contenu</a>
+<header class="site-nav" data-nav>
+  <div class="site-nav__mosaic" aria-hidden="true">
+    <img src="../assets/images/oeuvres/thumb/cld05.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld11.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld19.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld27.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld34.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld41.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld50.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld56.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld63.jpg" alt="" loading="lazy">
+    <img src="../assets/images/oeuvres/thumb/cld70.jpg" alt="" loading="lazy">
+  </div>
+  <div class="site-nav__bar">
+    <a href="../index.html" class="site-nav__brand">Claudine Dan</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav-links">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav class="site-nav__links" id="site-nav-links" aria-label="Sommaire du site">
+      <a href="../boutique/index.html">Boutique</a>
+      <a href="../galerie/index.html">Ces œuvres</a>
+      <a href="../oeuvres/index.html">Histoires d'œuvres</a>
+      <a href="../memoire/index.html">Les 7 œuvres</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="https://www.instagram.com/danclaupaintart/" class="site-nav__insta" target="_blank" rel="noopener">Instagram ↗</a>
+    </nav>
+  </div>
+</header>
+
+
+<main id="main">
+  <header class="oeuvre-header">
+    <button class="back-button" onclick="history.back()">← Retour</button>
+    <p class="eyebrow">Boutique — Tableau original</p>
+    <h1>Infini</h1>
+    <p class="oeuvre-meta">50 × 50 cm · Acrylique sur toile · 2020–2025</p>
+  </header>
+
+  <nav class="sommaire" aria-label="Sommaire">
+    <p class="sommaire-title">Sommaire</p>
+    <ol>
+      <li><a href="#oeuvre">L'œuvre</a></li>
+      <li><a href="#section2">L'intention</a></li>
+      <li><a href="#acquerir">Acquérir cette œuvre</a></li>
+    </ol>
+  </nav>
+
+  <section id="oeuvre" class="oeuvre-section">
+    <img src="../assets/images/oeuvres/collection2025/full/cld86.jpg" alt="Infini, 50 × 50 cm · Acrylique sur toile · 2020–2025" loading="eager" decoding="async">
+  </section>
+
+  <section id="section2" class="oeuvre-section">
+    <h2>L'intention</h2>
+    <p>L'art est une fenêtre ouverte sur l'âme…</p>
+  </section>
+
+  <section id="acquerir" class="oeuvre-section oeuvre-section--cta">
+    <h2>Acquérir cette œuvre</h2>
+    <p>Pièce unique, disponible sur demande dans la boutique de Claudine Dan.</p>
+    <a href="../boutique/index.html" class="cta-button">Voir la boutique</a>
+  </section>
+
+  <nav class="oeuvre-pager" aria-label="Navigation entre les œuvres">
+    <a href="dragon-rose-i.html">← Précédent</a>
+    <a href="index.html">Histoires d'œuvres</a>
+    <a href="vague.html">Suivant →</a>
+  </nav>
+</main>
+
+<footer class="site-footer" id="newsletter">
+  <div class="footer-newsletter">
+    <p class="eyebrow">Newsletter</p>
+    <p>Recevez les nouvelles pièces et les prochaines expositions de Claudine Dan.</p>
+    <form class="newsletter-form" data-newsletter>
+      <label class="sr-only" for="newsletter-email">Adresse e-mail</label>
+      <input type="email" id="newsletter-email" name="email" placeholder="Votre e-mail" required>
+      <button type="submit">S'inscrire</button>
+    </form>
+  </div>
+  <p>Contact : <a href="mailto:creations.dan02@gmail.com">creations.dan02@gmail.com</a></p>
+  <p><a href="https://www.instagram.com/danclaupaintart/" target="_blank" rel="noopener">Instagram</a></p>
+  <p><a href="../mentions-legales.html">Mentions légales</a> · <a href="../confidentialite.html">Confidentialité</a></p>
+  <p>Site réalisé par <strong>Kemeted &amp; Association</strong></p>
+</footer>
+
+<script src="../js/nav.js" type="module"></script>
+</body>
+</html>
