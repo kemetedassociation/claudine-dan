@@ -90,6 +90,7 @@
   --color-paper: #14120f;
   --color-paper-deep: #1d1a15;
   --color-ink: #f2ede4;
+  --color-ink-soft: #b8b2a4;   /* texte secondaire clair — sinon reste sombre sur fond sombre */
   --color-line: rgba(242, 237, 228, 0.22);
 }
 

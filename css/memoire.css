@@ -5,7 +5,8 @@
    ============================================================ */
 
 .memoire-header {
-  padding: var(--space-3) var(--section-pad-x);
+  /* Dégage la nav mosaïque fixe (~4rem) posée par-dessus le haut de page */
+  padding: calc(4rem + var(--space-3)) var(--section-pad-x) var(--space-3);
 }
 .memoire-header .back-link {
   font-family: var(--font-ui);

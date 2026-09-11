@@ -46,7 +46,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-size: var(--fs-md);
-  color: var(--color-paper);
+  color: #f2ede4; /* littéral : la nav a son propre fond sombre fixe, indépendant du thème jour/nuit de la page qui la contient */
   white-space: nowrap;
 }
 
@@ -61,7 +61,7 @@
   font-size: var(--fs-xs);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--color-paper);
+  color: #f2ede4; /* littéral, cf. .site-nav__brand */
   padding-bottom: 0.2em;
   border-bottom: 1px solid transparent;
   transition: border-color var(--dur-fast) var(--ease-soft), opacity var(--dur-fast) var(--ease-soft);
@@ -86,7 +86,7 @@
   display: block;
   width: 100%;
   height: 1px;
-  background: var(--color-paper);
+  background: #f2ede4; /* littéral, cf. .site-nav__brand */
 }
 
 @media (max-width: 860px) {
