@@ -7,14 +7,24 @@ document.querySelectorAll('[data-nav]').forEach((nav) => {
   const toggle = nav.querySelector('.nav-toggle');
   const links = nav.querySelector('.site-nav__links');
   if (!toggle || !links) return;
+  function setBackgroundScroll(enabled) {
+    // Empêche le fond de scroller derrière le menu plein écran (mobile).
+    // Sur l'accueil, Lenis pilote le scroll lui-même : on le met en pause
+    // aussi, sinon body{overflow:hidden} seul ne suffit pas à l'arrêter.
+    document.body.style.overflow = enabled ? '' : 'hidden';
+    if (window.lenis) enabled ? window.lenis.start() : window.lenis.stop();
+  }
+
   toggle.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(open));
+    setBackgroundScroll(!open);
   });
   links.querySelectorAll('a').forEach((a) => {
     a.addEventListener('click', () => {
       nav.classList.remove('is-open');
       toggle.setAttribute('aria-expanded', 'false');
+      setBackgroundScroll(true);
     });
   });
 });
