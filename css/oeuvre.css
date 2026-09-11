@@ -1,0 +1,218 @@
+/* ============================================================
+   FICHE ŒUVRE — page de détail multipage (une œuvre, un sommaire)
+   ============================================================ */
+
+/* ---------- Mosaïque animée (hub "Histoires d'œuvres") ---------- */
+
+.morph-hero {
+  position: relative;
+  height: min(80vh, 44rem);
+  min-height: 26rem;
+  overflow: hidden;
+  background: var(--color-ink);
+  touch-action: pan-y;
+}
+.morph-hero__hint {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-line-invert);
+  pointer-events: none;
+}
+
+.morph-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5.5rem;
+  height: 7.5rem;
+  opacity: 0;
+  will-change: transform;
+}
+.morph-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--dur-base) var(--ease-soft);
+  transform-style: preserve-3d;
+}
+.morph-card:hover .morph-card__inner,
+.morph-card:focus-visible .morph-card__inner {
+  transform: rotateY(180deg);
+}
+.morph-card__face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border: 1px solid var(--color-line-invert);
+}
+.morph-card__front img,
+.morph-card__front .artwork-placeholder {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.morph-card__front img { object-fit: cover; }
+.morph-card__back {
+  transform: rotateY(180deg);
+  background: var(--color-ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-1);
+}
+.morph-card__label {
+  font-family: var(--font-ui);
+  font-size: 0.6rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ocre);
+  margin-bottom: 0.3em;
+}
+.morph-card__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xs);
+  color: var(--color-paper);
+  line-height: var(--lh-snug);
+}
+
+.morph-hero.is-static .morph-card {
+  position: relative;
+  display: inline-block;
+  margin: var(--space-1);
+  top: auto; left: auto;
+  transform: none !important;
+}
+
+.oeuvre-header {
+  padding: calc(var(--space-7) + 3rem) var(--section-pad-x) var(--space-4);
+  max-width: 42rem;
+}
+.back-button {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.15em;
+}
+.oeuvre-header .eyebrow { color: var(--color-ocre); margin-bottom: var(--space-2); }
+.oeuvre-header h1 { margin-bottom: var(--space-2); }
+.oeuvre-meta {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  color: var(--color-ink-soft);
+}
+
+.sommaire {
+  max-width: 42rem;
+  padding: 0 var(--section-pad-x) var(--space-5);
+}
+.sommaire-title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  margin-bottom: var(--space-2);
+}
+.sommaire ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  border-left: var(--border-hair);
+  padding-left: var(--space-3);
+}
+.sommaire a {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  color: var(--color-ink);
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+.sommaire a:hover,
+.sommaire a:focus-visible { color: var(--color-ocre); }
+
+.oeuvre-section {
+  padding: var(--space-5) var(--section-pad-x);
+  max-width: 42rem;
+  scroll-margin-top: 6rem;
+}
+.oeuvre-section img {
+  max-width: min(100%, 44rem);
+  border: var(--border-hair);
+  background: var(--color-paper-deep);
+}
+.oeuvre-section h2 { margin-bottom: var(--space-3); }
+.oeuvre-section p {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  max-width: 34rem;
+}
+.oeuvre-section p + p { margin-top: var(--space-3); }
+
+.oeuvre-section--cta {
+  background: var(--color-paper-deep);
+}
+.cta-button {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 0.7em 1.4em;
+  border: 1px solid var(--color-ink);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  transition: background var(--dur-fast) var(--ease-soft), color var(--dur-fast) var(--ease-soft);
+}
+.cta-button:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.oeuvre-pager {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--section-pad-x) var(--space-7);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  border-top: var(--border-hair);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.oeuvre-pager a { color: var(--color-ink-soft); }
+.oeuvre-pager a:hover { color: var(--color-ink); }
+
+/* ---------- Grille de la page hub "Histoires d'œuvres" ---------- */
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--space-3);
+  padding: 0 var(--section-pad-x) var(--space-7);
+  max-width: var(--container-max);
+  margin-inline: auto;
+}
+.hub-card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: var(--border-hair);
+  margin-bottom: var(--space-2);
+}
+.hub-card h3 { font-size: var(--fs-md); }

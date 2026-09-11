@@ -17,10 +17,40 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/memoire.css">
+<link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
 
 <a href="#main" class="skip-link">Aller au contenu</a>
+<header class="site-nav" data-nav>
+  <div class="site-nav__mosaic" aria-hidden="true">
+    <img src="assets/images/oeuvres/thumb/cld05.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld11.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld19.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld27.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld34.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld41.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld50.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld56.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld63.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld70.jpg" alt="" loading="lazy">
+  </div>
+  <div class="site-nav__bar">
+    <a href="index.html" class="site-nav__brand">Claudine Dan</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav-links">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav class="site-nav__links" id="site-nav-links" aria-label="Sommaire du site">
+      <a href="boutique/index.html">Boutique</a>
+      <a href="galerie/index.html">Ces œuvres</a>
+      <a href="oeuvres/index.html">Histoires d'œuvres</a>
+      <a href="memoire/index.html">Les 7 œuvres</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="https://www.instagram.com/danclaupaintart/" class="site-nav__insta" target="_blank" rel="noopener">Instagram ↗</a>
+    </nav>
+  </div>
+</header>
 
 <header class="memoire-header">
   <a href="index.html" class="back-link">← Retour à l'accueil</a>
@@ -53,10 +83,22 @@
   </section>
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" id="newsletter">
+  <div class="footer-newsletter">
+    <p class="eyebrow">Newsletter</p>
+    <p>Recevez les nouvelles pièces et les prochaines expositions de Claudine Dan.</p>
+    <form class="newsletter-form" data-newsletter>
+      <label class="sr-only" for="newsletter-email">Adresse e-mail</label>
+      <input type="email" id="newsletter-email" name="email" placeholder="Votre e-mail" required>
+      <button type="submit">S'inscrire</button>
+    </form>
+  </div>
   <p>Contact : <a href="mailto:creations.dan02@gmail.com">creations.dan02@gmail.com</a></p>
+  <p><a href="https://www.instagram.com/danclaupaintart/" target="_blank" rel="noopener">Instagram</a></p>
+  <p><a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a></p>
   <p>Site réalisé par <strong>Kemeted &amp; Association</strong></p>
 </footer>
 
+<script src="js/nav.js" type="module"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/portfolio.css">
+<link rel="stylesheet" href="css/nav.css">
 
 <script type="application/ld+json">
 {
@@ -49,6 +50,36 @@
 <body>
 
 <a href="#main" class="skip-link">Aller au contenu</a>
+<header class="site-nav" data-nav>
+  <div class="site-nav__mosaic" aria-hidden="true">
+    <img src="assets/images/oeuvres/thumb/cld05.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld11.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld19.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld27.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld34.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld41.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld50.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld56.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld63.jpg" alt="" loading="lazy">
+    <img src="assets/images/oeuvres/thumb/cld70.jpg" alt="" loading="lazy">
+  </div>
+  <div class="site-nav__bar">
+    <a href="index.html" class="site-nav__brand">Claudine Dan</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav-links">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Menu</span>
+    </button>
+    <nav class="site-nav__links" id="site-nav-links" aria-label="Sommaire du site">
+      <a href="boutique/index.html">Boutique</a>
+      <a href="galerie/index.html">Ces œuvres</a>
+      <a href="oeuvres/index.html">Histoires d'œuvres</a>
+      <a href="memoire/index.html">Les 7 œuvres</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="https://www.instagram.com/danclaupaintart/" class="site-nav__insta" target="_blank" rel="noopener">Instagram ↗</a>
+    </nav>
+  </div>
+</header>
+
 <div class="cursor" aria-hidden="true"></div>
 <div class="scroll-progress" aria-hidden="true"></div>
 
@@ -119,7 +150,7 @@
   <!-- 04b — Reconnaissance -->
   <section id="s04b" class="scene scene--reconnaissance" aria-label="Expositions">
     <div class="written-lines">
-      <p>Exposée à l'UNICEF, en 2018.</p>
+      <p>Exposée à l'UNESCO, en 2018.</p>
       <p>À l'ambassade du Bénin, à Paris.</p>
       <p>Au Palais National, au Bénin.</p>
     </div>
@@ -129,16 +160,16 @@
   <section id="s05" class="scene scene--galerie-i" aria-label="Œuvres — première galerie">
     <div class="scene__inner gallery-float">
       <figure class="gallery-float__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld03.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+        <a href="oeuvres/cld03.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld03.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-float__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld20.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+        <a href="oeuvres/cld20.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld20.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-float__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld45.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+        <a href="oeuvres/cld45.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld45.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-float__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld59.jpg" alt="Série Géométrique Or, acrylique sur toile, 40×60" loading="lazy" decoding="async">
+        <a href="oeuvres/serie-geometrique-or.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld59.jpg" alt="Série Géométrique Or, acrylique sur toile, 40×60" loading="lazy" decoding="async"></a>
       </figure>
     </div>
   </section>
@@ -146,7 +177,7 @@
   <!-- 06 — Rapprochement matière -->
   <section id="s06" class="scene scene--matiere" aria-label="Détail d'œuvre">
     <div class="matiere-frame">
-      <img class="artwork-photo matiere-wide" style="aspect-ratio:auto;" src="assets/images/oeuvres/curated/cld45.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+      <a href="oeuvres/cld45.html" data-save-scroll><img class="artwork-photo matiere-wide" style="aspect-ratio:auto;" src="assets/images/oeuvres/curated/cld45.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       <img class="artwork-photo matiere-detail" style="aspect-ratio:auto;" src="assets/images/oeuvres/matiere-detail.jpg" alt="Détail macro de la même toile — matière et pigment" loading="lazy" decoding="async">
       <p class="matiere-caption">Le grain, le geste, la matière.</p>
     </div>
@@ -168,7 +199,7 @@
           <path d="M 60 340 Q 150 260 140 180 Q 130 100 220 90 Q 320 80 340 200" />
         </svg>
       </div>
-      <img class="artwork-photo" style="width:min(34vmin,300px);aspect-ratio:1;" src="assets/images/oeuvres/curated/cld12.jpg" alt="La Ruada — œuvre peinte en dansant" loading="lazy" decoding="async">
+      <a href="oeuvres/la-ruada.html" data-save-scroll><img class="artwork-photo" style="width:min(34vmin,300px);aspect-ratio:1;" src="assets/images/oeuvres/curated/cld12.jpg" alt="La Ruada — œuvre peinte en dansant" loading="lazy" decoding="async"></a>
     </div>
   </section>
 
@@ -191,22 +222,22 @@
   <section id="s10" class="scene scene--galerie-horizontale" aria-label="Œuvres — Afrique et voyage">
     <div class="gallery-horizontal">
       <figure class="gallery-horizontal__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld15.jpg" alt="Éclats Floraux, acrylique sur toile, 40×40" loading="lazy" decoding="async">
+        <a href="oeuvres/eclats-floraux.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld15.jpg" alt="Éclats Floraux, acrylique sur toile, 40×40" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-horizontal__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld25.jpg" alt="Énergie Libre, acrylique sur toile, 80×100" loading="lazy" decoding="async">
+        <a href="oeuvres/energie-libre.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld25.jpg" alt="Énergie Libre, acrylique sur toile, 80×100" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-horizontal__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld33.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+        <a href="oeuvres/cld33.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld33.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-horizontal__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld47.jpg" alt="Bleu Profond, acrylique sur toile, 50×70" loading="lazy" decoding="async">
+        <a href="oeuvres/bleu-profond.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld47.jpg" alt="Bleu Profond, acrylique sur toile, 50×70" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-horizontal__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld58.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+        <a href="oeuvres/cld58.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld58.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       </figure>
       <figure class="gallery-horizontal__item">
-        <img class="artwork-photo" src="assets/images/oeuvres/curated/cld72.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async">
+        <a href="oeuvres/cld72.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld72.jpg" alt="Œuvre originale de Claudine Dan" loading="lazy" decoding="async"></a>
       </figure>
     </div>
   </section>
@@ -233,8 +264,18 @@
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" id="newsletter">
+  <div class="footer-newsletter">
+    <p class="eyebrow">Newsletter</p>
+    <p>Recevez les nouvelles pièces et les prochaines expositions de Claudine Dan.</p>
+    <form class="newsletter-form" data-newsletter>
+      <label class="sr-only" for="newsletter-email">Adresse e-mail</label>
+      <input type="email" id="newsletter-email" name="email" placeholder="Votre e-mail" required>
+      <button type="submit">S'inscrire</button>
+    </form>
+  </div>
   <p>Contact : <a href="mailto:creations.dan02@gmail.com">creations.dan02@gmail.com</a></p>
+  <p><a href="https://www.instagram.com/danclaupaintart/" target="_blank" rel="noopener">Instagram</a></p>
   <p><a href="mentions-legales.html">Mentions légales</a> · <a href="confidentialite.html">Confidentialité</a></p>
   <p>Site réalisé par <strong>Kemeted &amp; Association</strong></p>
 </footer>
@@ -244,5 +285,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="js/main.js" type="module"></script>
 <script src="js/portfolio.js" type="module"></script>
+<script src="js/nav.js" type="module"></script>
+<script src="js/scroll-memory.js" type="module"></script>
 </body>
 </html>
