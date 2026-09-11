@@ -320,27 +320,40 @@
 
 /* ---------- 10 — Galerie horizontale Afrique/Voyage ---------- */
 .scene--galerie-horizontale {
-  min-height: 380vh;
-  padding: 0;
-  overflow: hidden;
+  min-height: 0;
+  padding: var(--section-pad-y) 0;
+}
+.gallery-horizontal-hint {
+  display: block;
+  padding: 0 var(--section-pad-x) var(--space-3);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
 }
 .gallery-horizontal {
   display: flex;
-  height: 100vh;
   align-items: center;
   gap: var(--space-5);
   padding-inline: var(--section-pad-x);
-  width: max-content;
-  will-change: transform;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
-.gallery-horizontal__item { width: min(60vw, 560px); flex-shrink: 0; }
+.gallery-horizontal__item { width: min(60vw, 560px); flex-shrink: 0; scroll-snap-align: start; }
 .gallery-horizontal__item .artwork-placeholder,
 .gallery-horizontal__item .artwork-photo { aspect-ratio: 3 / 4; }
 .gallery-horizontal__item .artwork-label { position: absolute; bottom: 0; left: 0; }
 
 /* ---------- 11 — Transmission ---------- */
+/* Retour utilisateur : plus de grand vide entre la galerie horizontale
+   (désormais courte, sans pin) et cette scène — hauteur ramenée au
+   contenu au lieu d'une réserve de scroll de 140vh. */
 .scene--transmission {
-  min-height: 140vh;
+  min-height: 0;
 }
 .transmission-grid {
   display: grid;

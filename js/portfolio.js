@@ -322,22 +322,10 @@ gsap.matchMedia().add(
     }
 
     // ---------- 10 — Galerie horizontale Afrique / Voyage ----------
-    const horizTrack = document.querySelector('.gallery-horizontal');
-    if (horizTrack && full) {
-      const getScrollAmount = () => horizTrack.scrollWidth - window.innerWidth + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--section-pad-x')) * 2;
-      gsap.to(horizTrack, {
-        x: () => -getScrollAmount(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.scene--galerie-horizontale',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.6,
-          pin: true,
-          invalidateOnRefresh: true,
-        },
-      });
-    }
+    // Retour utilisateur : plus de scroll-jacking ici — un simple défilement
+    // latéral tactile/à la souris (voir .gallery-horizontal en CSS), sans
+    // pin ScrollTrigger, pour supprimer le grand vide de scroll que le pin
+    // laissait avant la scène 11.
 
     // ---------- 11 — Transmission ----------
     const transmission = document.querySelector('.scene--transmission .transmission-grid');
