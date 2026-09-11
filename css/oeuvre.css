@@ -198,21 +198,40 @@
 .oeuvre-pager a { color: var(--color-ink-soft); }
 .oeuvre-pager a:hover { color: var(--color-ink); }
 
-/* ---------- Grille de la page hub "Histoires d'œuvres" ---------- */
+/* ---------- Grille de la page hub "Histoires d'œuvres" ----------
+   Même esprit "masonry" que la galerie complète (.oeuvres-grid) plutôt
+   qu'une grille uniforme — moins linéaire, moins entassée : chaque photo
+   garde ses proportions natives. */
 
 .hub-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-  gap: var(--space-3);
+  columns: 4;
+  column-gap: var(--space-2);
   padding: 0 var(--section-pad-x) var(--space-7);
   max-width: var(--container-max);
   margin-inline: auto;
 }
+.hub-card {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: var(--space-3);
+  border: var(--border-hair);
+  background: var(--color-paper-deep);
+}
 .hub-card img {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  border: var(--border-hair);
-  margin-bottom: var(--space-2);
+  height: auto;
+  display: block;
+  transition: transform var(--dur-base) var(--ease-soft);
 }
-.hub-card h3 { font-size: var(--fs-md); }
+.hub-card:hover img { transform: scale(1.02); }
+.hub-card h3 {
+  padding: var(--space-2);
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 960px) {
+  .hub-grid { columns: 3; }
+}
+@media (max-width: 640px) {
+  .hub-grid { columns: 2; column-gap: var(--space-1); }
+}
