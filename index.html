@@ -220,8 +220,14 @@
 
   <!-- 10 — Galerie horizontale Afrique / Voyage -->
   <section id="s10" class="scene scene--galerie-horizontale" aria-label="Œuvres — Afrique et voyage">
-    <span class="gallery-horizontal-hint">← Faites glisser pour explorer →</span>
-    <div class="gallery-horizontal">
+    <div class="gallery-horizontal-controls">
+      <span class="gallery-horizontal-hint">Défilement continu — faites glisser pour explorer</span>
+      <div class="gallery-horizontal-nav">
+        <button type="button" class="gallery-nav-btn" data-gallery-prev aria-label="Œuvre précédente">← Retour</button>
+        <button type="button" class="gallery-nav-btn" data-gallery-next aria-label="Œuvre suivante">Suivant →</button>
+      </div>
+    </div>
+    <div class="gallery-horizontal" data-auto-scroll>
       <figure class="gallery-horizontal__item">
         <a href="oeuvres/eclats-floraux.html" data-save-scroll><img class="artwork-photo" src="assets/images/oeuvres/curated/cld15.jpg" alt="Éclats Floraux, acrylique sur toile, 40×40" loading="lazy" decoding="async"></a>
       </figure>
@@ -287,6 +293,7 @@
 <script src="js/main.js" type="module"></script>
 <script src="js/portfolio.js" type="module"></script>
 <script src="js/nav.js" type="module"></script>
+<script src="js/gallery-horizontal.js" type="module"></script>
 <script src="js/scroll-memory.js" type="module"></script>
 </body>
 </html>
